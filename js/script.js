@@ -9,7 +9,7 @@ $(document).ready(
 
     // Creare un array con 5 numeri casuali (uso una funzione)
     var arrayNumeriCasuali = creaArrayNumeriCasuali();
-    console.log('random' + arrayNumeriCasuali);
+    console.log(arrayNumeriCasuali);
 
     // Fare un alert che mostri i numeri casuali
     alert(arrayNumeriCasuali);
@@ -17,26 +17,21 @@ $(document).ready(
     // Quando l'utente chiude alert, partono 30 secondi
     // alla fine dei quali mostro 5 prompt in cui l'utente deve scrivere
     // i numeri dell'alert che ricorda
+    // Controllo quali  e quanti numeri inseriti dall'utente sono presenti nell'array
+    // dei numeri casuali e do una risposta
     setTimeout(function() {
 
       var arrayNumeriUtente = [];
+      var arrayNumeriIndovinati = [];
       for (var i = 0; i < 5; i++) {
         var numeroUtente = parseInt(prompt('Dimmi che numero ricordi.'));
-        arrayNumeriUtente.push(numeroUtente);
-      }
-      console.log('utente' + arrayNumeriUtente);
-
-      // Controllo quali  e quanti numeri inseriti dall'utente sono presenti nell'array
-      // dei numeri casuali e do una risposta
-      var risposteGiuste = [];
-      for (var j = 0; j < arrayNumeriUtente.length; j++) {
-        if (arrayNumeriCasuali.includes(arrayNumeriUtente[i])) {
-          risposteGiuste.push(arrayNumeriUtente[i]);
+        if (arrayNumeriCasuali.includes(numeroUtente)) {
+          arrayNumeriIndovinati.push(numeroUtente);
         }
 
       }
-      console.log('risposte' + risposteGiuste);
-      console.log('Hai beccato' + risposteGiuste.length + 'risposte giuste');
+      console.log(arrayNumeriIndovinati);
+      console.log('hai indovinato' + arrayNumeriIndovinati.length + 'su 5 numeri');
 
     }, 1000); // TODO: mettere 30000
 
