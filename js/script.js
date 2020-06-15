@@ -7,8 +7,12 @@
 $(document).ready(
   function() {
 
-    // Creare un array con 5 numeri casuali (uso una funzione)
-    var arrayNumeriCasuali = creaArrayNumeriCasuali();
+    // Opzioni
+    var numeriDaIndovinare = 5;
+    var secondiPerGiocare = 1; // Todo metterla a 30
+
+    // Creare un array con 5 numeri casuali diversi tra loro (uso una funzione)
+    var arrayNumeriCasuali = creaArrayNumeriCasuali(numeriDaIndovinare);
     console.log(arrayNumeriCasuali);
 
     // Fare un alert che mostri i numeri casuali
@@ -23,26 +27,50 @@ $(document).ready(
 
       var arrayNumeriUtente = [];
       var arrayNumeriIndovinati = [];
-      for (var i = 0; i < 5; i++) {
+
+      while (arrayNumeriUtente.length < numeriDaIndovinare) {
         var numeroUtente = parseInt(prompt('Dimmi che numero ricordi.'));
-        if (arrayNumeriCasuali.includes(numeroUtente)) {
-          arrayNumeriIndovinati.push(numeroUtente);
+        if (arrayNumeriUtente.includes(numeroUtente) === false) {
+          arrayNumeriUtente.push(numeroUtente);
         }
-
       }
-      console.log(arrayNumeriIndovinati);
-      console.log('hai indovinato' + arrayNumeriIndovinati.length + 'su 5 numeri');
+      console.log(arrayNumeriUtente);
 
-    }, 1000); // TODO: mettere 30000
+      var arrayNumeriIndovinati = [];
+
+      for (var i = 0; i < arrayNumeriUtente.length; i++) {
+        if (arrayNumeriCasuali.includes(arrayNumeriUtente[i]) === true) {
+          arrayNumeriIndovinati.push(arrayNumeriUtente[i]);
+        }
+      }
+
+      var messaggio = 'Non hai indovinato nessun numero!';
+
+      if (arrayNumeriIndovinati.length == 5) {
+        messaggio = 'Complimenti: hai indovinato tutti i numeri';
+      } else if (arrayNumeriIndovinati.length > 0) {
+        messaggio = 'Hai indovinato ' + arrayNumeriIndovinati.length + ': i numeri indovinati sono: ' + arrayNumeriIndovinati;
+      }
+
+
+      console.log(arrayNumeriIndovinati);
+
+      alert(messaggio);
+
+    }, secondiPerGiocare * 1000);
 
 
     // FUNZIONI
     // Funzione che crea un array di numeri casuali
-    function creaArrayNumeriCasuali() {
+    function creaArrayNumeriCasuali(numeriArray) {
       var arrayNumeriCasuali = [];
-      for (var i = 0; i < 5; i++) {
-          arrayNumeriCasuali.push(Math.floor(Math.random() * 10) + 1);
+
+      for (var i = 0; arrayNumeriCasuali.length < numeriArray; i++) {
+        var numeroRandom = (Math.floor(Math.random() * 10) + 1);
+        if(arrayNumeriCasuali.includes(numeroRandom) === false) {
+          arrayNumeriCasuali.push(numeroRandom);
         }
+      }
       return arrayNumeriCasuali;
     }
 
